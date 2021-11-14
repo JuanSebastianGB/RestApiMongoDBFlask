@@ -3,9 +3,11 @@
 """[Module to handle users]
 """
 from flask import Flask, request
+from flask import json
 from flask.json import jsonify
 import uuid
 from passlib.hash import pbkdf2_sha256
+from app import db
 
 
 class User:
@@ -22,4 +24,11 @@ class User:
             "password": request.form.get('password')
         }
         user['password'] = pbkdf2_sha256.hash(user['password'])
-        return jsonify(user), 200
+
+        if db.users.find_one({"email": user["email"]}):
+            return jsonify({"error": "Email already in use"}), 400
+        
+        if db.users.insert_one(user):
+            return jsonify(user), 200
+
+        return jsonify({"error": "signup failed"}), 400

@@ -1,6 +1,6 @@
 $("form[name=signup_form]").submit(function (e) {
     let $form = $(this);
-    var $error = $form.find(".error");
+    let $error = $form.find(".error");
     let data = $form.serialize();
 
     $.ajax({
@@ -13,6 +13,7 @@ $("form[name=signup_form]").submit(function (e) {
         },
         error: function (resp) {
             console.log(resp);
+            $error.text(resp.responseJSON.error).removeClass("error--hidden");
         }
     })
 
