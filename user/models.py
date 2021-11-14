@@ -2,8 +2,9 @@
 
 """[Module to handle users]
 """
-from flask import Flask
+from flask import Flask, request
 from flask.json import jsonify
+import uuid
 
 
 class User:
@@ -14,9 +15,9 @@ class User:
         """[Return the user object if json format]
         """
         user = {
-            "_id": "",
-            "name": "",
-            "email": "",
-            "password": ""
+            "_id": uuid.uuid4().hex,
+            "name": request.form.get('name'),
+            "email": request.form.get('email'),
+            "password": request.form.get('password')
         }
         return jsonify(user), 200

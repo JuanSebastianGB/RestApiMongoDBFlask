@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+from user import routes
 from flask import Flask
 from flask.templating import render_template
 
 app = Flask(__name__)
 
-#Routes
-from user import routes
+# Routes
+
 
 @app.route('/')
 def home():
