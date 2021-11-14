@@ -5,6 +5,7 @@
 from flask import Flask, request
 from flask.json import jsonify
 import uuid
+from passlib.hash import pbkdf2_sha256
 
 
 class User:
@@ -20,4 +21,5 @@ class User:
             "email": request.form.get('email'),
             "password": request.form.get('password')
         }
+        user['password'] = pbkdf2_sha256.hash(user['password'])
         return jsonify(user), 200
