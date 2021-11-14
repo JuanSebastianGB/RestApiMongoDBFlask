@@ -2,7 +2,7 @@
 
 """[Module to handle users]
 """
-from flask import Flask, request
+from flask import Flask, request, session, redirect
 from flask import json
 from flask.json import jsonify
 import uuid
@@ -14,8 +14,14 @@ class User:
     """[Class user]
     """
 
+    def start_session(self, user):
+        del user["password"]
+        session["logged_in"] = True
+        session["user"] = user
+        return jsonify(user), 200
+
     def signup(self):
-        """[Return the user object if json format]
+        """[Adding a new user if success]
         """
         user = {
             "_id": uuid.uuid4().hex,
@@ -27,8 +33,13 @@ class User:
 
         if db.users.find_one({"email": user["email"]}):
             return jsonify({"error": "Email already in use"}), 400
-        
+
         if db.users.insert_one(user):
-            return jsonify(user), 200
+            return self.start_session(user)
 
         return jsonify({"error": "signup failed"}), 400
+
+    def signout(self):
+        """Implements signout by claring session and redirect to the form"""
+        session.clear()
+        return redirect("/")
