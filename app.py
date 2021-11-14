@@ -1,21 +1,6 @@
 #!/usr/bin/env python3
-from user import routes
 from flask import Flask
-from flask.templating import render_template
-
-app = Flask(__name__)
-
-# Routes
-
-
-@app.route('/')
-def home():
-    return render_template("home.html")
-
-
-@app.route('/dashboard/')
-def dashboard():
-    return render_template("dashboard.html")
+from app import app
 
 
 if __name__ == "__main__":
