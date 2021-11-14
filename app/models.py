@@ -15,6 +15,8 @@ class User:
     """
 
     def start_session(self, user):
+        """Start session variables logged_in and user and
+        return code 200 if success"""
         del user["password"]
         session["logged_in"] = True
         session["user"] = user

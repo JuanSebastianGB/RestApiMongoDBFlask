@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Starting point of the app"""
+
 from flask import Flask
 from app import app
 

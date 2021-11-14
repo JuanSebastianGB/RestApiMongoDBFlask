@@ -8,6 +8,8 @@ from functools import wraps
 
 
 def login_required(f):
+    """Decorator to prevent go to dashboard view
+    if the user is not logged in"""
     @wraps(f)
     def wrap(*args, **kwargs):
         if "logged_in" in session:
