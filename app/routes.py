@@ -35,7 +35,13 @@ def signup():
     return User().signup()
 
 
-@app.route('/user/signout')
+@app.route('/user/signout/')
 def signout():
     """Implement signout by typting the route"""
     return User().signout()
+
+
+@app.route('/user/login/', methods=["POST"])
+def login():
+    """Implement login by typting the route"""
+    return User().login()
